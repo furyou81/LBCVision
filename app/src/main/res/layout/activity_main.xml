@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/bTake"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Prendre une photo"
+            android:onClick="dispatchTakePictureIntent"/>
+        <ImageView
+            android:layout_below="@id/bTake"
+            android:layout_width="match_parent"
+           android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:id="@+id/mImageView"/>
+
+        <TextView
+            android:id="@+id/mdesc"
+            android:layout_below="@id/mImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:text="Description"/>
+        <Spinner
+            android:id="@+id/objet"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"></Spinner>
+        <TextView
+            android:id="@+id/mtext"
+            android:layout_below="@id/mImageView"
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
+            android:scrollbars="vertical"
+            android:maxLines="10"
+            android:text="test"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/mlock"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="180dp"
+        android:layout_height="180dp" />
+
+</RelativeLayout>
