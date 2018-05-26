@@ -3,52 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/bk">
 
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:id="@+id/bTake"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Prendre une photo"
-            android:onClick="dispatchTakePictureIntent"/>
-        <ImageView
-            android:layout_below="@id/bTake"
-            android:layout_width="match_parent"
-           android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:id="@+id/mImageView"/>
+    <ImageView
+        android:id="@+id/mImageView"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
 
-        <TextView
-            android:id="@+id/mdesc"
-            android:layout_below="@id/mImageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:text="Description"/>
-        <Spinner
-            android:id="@+id/objet"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"></Spinner>
-        <TextView
-            android:id="@+id/mtext"
-            android:layout_below="@id/mImageView"
-            android:layout_width="match_parent"
-            android:layout_height="200sp"
-            android:scrollbars="vertical"
-            android:maxLines="10"
-            android:text="test"/>
-    </LinearLayout>
+        android:onClick="dispatchTakePictureIntent"
+        android:src="@drawable/camera"
+        android:padding="50dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/fon"
+
+        />
+
     <ImageView
         android:id="@+id/mlock"
         android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
         android:layout_width="180dp"
         android:layout_height="180dp" />
+
+    <RelativeLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mImageView"
+        android:layout_centerHorizontal="true">
+    <Button
+        android:id="@+id/ba"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:background="@drawable/ba"
+        android:onClick="buy"/>
+8
+    <Button
+        android:id="@+id/bv"
+        android:layout_marginLeft="80dp"
+        android:layout_toRightOf="@id/ba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:background="@drawable/bv"
+        android:onClick="sell"
+        />
+    </RelativeLayout>
 
 </RelativeLayout>

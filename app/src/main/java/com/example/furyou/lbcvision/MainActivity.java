@@ -43,10 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView mImageView;
     private ImageView mlock;
-    private TextView mtext;
-    private Spinner objet;
     private ArrayList<String> descr;
+    private String desc1;
+    private String desc2;
+    private String desc3;
     private Map<String, String> cat;
+    private Bitmap imageBitmap;
+    private boolean explicit = false;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     @Override
@@ -54,15 +57,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mImageView = (ImageView) findViewById(R.id.mImageView);
-        mtext = (TextView) findViewById(R.id.mtext);
-        mtext.setMovementMethod(new ScrollingMovementMethod());
         mlock = (ImageView) findViewById(R.id.mlock);
-        objet = (Spinner) findViewById(R.id.objet);
         cat = new HashMap<String, String>();
        // cat.put("table")
     }
 
     public void dispatchTakePictureIntent(View v) {
+        explicit = false;
         mlock.setImageDrawable(null);
         if (ContextCompat.checkSelfPermission( this, Manifest.permission.INTERNET ) != PackageManager.PERMISSION_GRANTED ) {
             ActivityCompat.requestPermissions( this, new String[] {  Manifest.permission.INTERNET  },
@@ -90,8 +91,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = (Bitmap) extras.get("data");
             mImageView.setImageBitmap(imageBitmap);
+           // mImageView.setImageAlpha(255);
+            mImageView.setPadding(0,0,0,0);
             String base64 = to_base_64(imageBitmap);
 
             Log.i("EEEEEEEEEE", "RRRRRRRRR" + base64);
@@ -168,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 while((bytesRead = in.read(contents)) != -1) {
                     strFileContents += new String(contents, 0, bytesRead);
                 }
-                descr = new ArrayList<String>();
+              //  descr = new ArrayList<String>();
                 //String descr = "";
 
                 // PARSING JSON RESPONSE FROM GOOGLE VISION
@@ -180,14 +183,16 @@ public class MainActivity extends AppCompatActivity {
                // JSONArray arr = jObject.getJSONArray("posts");
                 JSONObject o = res.getJSONObject(0);
                 JSONArray labels = o.getJSONArray("labelAnnotations");
-                Log.i("SIZE", "S=" + strFileContents);
+             //   Log.i("SIZE", "S=" + strFileContents);
                 //  JSONObject o2 = res.getJSONObject(1);
                 String invalid = o.getString("safeSearchAnnotation");
                 Log.i("RRRRR", invalid);
 
 
-                if (invalid.contains("\"POSSIBLE") || invalid.contains("\"LIKELY") || invalid.contains("\"VERY_LIKELY"))
+                if (invalid.contains("\"LIKELY") || invalid.contains("\"VERY_LIKELY")) {
+                    explicit = true;
                     return ("EXPLICIT");
+                }
                    // Log.i("EXPLICIT", "POSSIBLE");
 
 
@@ -208,7 +213,12 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < labels.length(); i++)
                 {
                     JSONObject c = labels.getJSONObject(i);
-                    descr.add(c.getString("description"));
+                    if (i == 0)
+                        desc1 = c.getString("description");
+                    else if (i == 1)
+                        desc2 = c.getString("description");
+                    else if (i == 2)
+                        desc3 = c.getString("description");
                   //  descr = descr + "/" + c.getString("description");
                 }
 
@@ -232,12 +242,37 @@ public class MainActivity extends AppCompatActivity {
             }
             else
             {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, descr);
-                objet.setAdapter(adapter);
+                //ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, descr);
+               // objet.setAdapter(adapter);
             }
-            mtext.setText(result);
+
         }
 
+    }
+
+    public void buy(View v)
+    {
+        if (!explicit) {
+            Intent intent = new Intent();
+            intent.setClass(this, BuyActivity.class);
+            intent.putExtra("desc1", desc1);
+            startActivity(intent);
+        }
+    }
+
+    public void sell(View v)
+    {
+        if (!explicit) {
+            Intent intent = new Intent();
+            intent.setClass(this, SellActivity.class);
+            intent.putExtra("image", imageBitmap);
+            intent.putExtra("desc1", desc1);
+            intent.putExtra("desc2", desc2);
+            intent.putExtra("desc3", desc3);
+            //  Log.i("LISTL", descr.get(0));
+            // Log.i("LISTL", descr.get(1));
+            startActivity(intent);
+        }
     }
 
 }

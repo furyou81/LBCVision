@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SellActivity">
+
+    <ImageView
+        android:id="@+id/mPic"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:scaleType="fitXY"
+        />
+
+    <TextView
+        android:id="@+id/desctv"
+        android:paddingLeft="10dp"
+        android:layout_below="@id/mPic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description:"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
+    <EditText
+        android:id="@+id/desc"
+        android:layout_below="@id/desctv"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:onClick="description"/>
+    <TextView
+        android:id="@+id/cat"
+        android:layout_below="@id/desc"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Category:"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
+    <EditText
+        android:id="@+id/cattv"
+        android:layout_below="@id/cat"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        />
+
+
+</RelativeLayout>
